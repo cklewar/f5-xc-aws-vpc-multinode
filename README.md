@@ -3,10 +3,8 @@ This repository consists of Terraform templates to bring up a F5XC AWC VPC multi
 
 ## Usage
 
-- Clone this repo with: `git clone https://github.com/cklewar/f5-xc-aws-vpc-multinode`
+- Clone this repo with: `git clone --recurse-submodules https://github.com/cklewar/f5-xc-aws-vpc-multinode`
 - Enter repository directory with: `cd f5-xc-aws-vpc-multinode`
-- Clone __modules__ repository with: `git clone https://github.com/cklewar/f5-xc-modules`
-- Rename __modules__ repository directory name with: `mv f5-xc-modules modules`
 - Obtain F5XC API certificate file from Console and save it to `cert` directory
 - Pick and choose from below examples and add mandatory input data and copy data into file `main.tf.example`.
 - Rename file __main.tf.example__ to __main.tf__ with: `rename main.tf.example main.tf`
