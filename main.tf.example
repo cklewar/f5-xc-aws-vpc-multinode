@@ -52,7 +52,7 @@ module "aws_vpc_multi_node_single_nic" {
   }
 }
 
-module "aws_vpc_multi_node" {
+/*module "aws_vpc_multi_node" {
   source                          = "./modules/f5xc/site/aws/vpc"
   f5xc_api_p12_file               = var.f5xc_api_p12_file
   f5xc_api_url                    = var.f5xc_api_url
@@ -158,4 +158,4 @@ module "aws_vpc_multi_node_multi_nic_existing_subnet" {
   custom_tags                          = {
     Owner = "c.klewar@f5.com"
   }
-}
+}*/
