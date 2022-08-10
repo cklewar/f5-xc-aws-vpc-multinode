@@ -47,7 +47,9 @@ module "aws_vpc_multi_node_single_nic" {
   f5xc_aws_vpc_use_http_https_port     = true
   f5xc_aws_vpc_use_http_https_port_sli = true
   public_ssh_key                       = "ssh-rsa xyz"
-  aws_owner_tag                        = "c.klewar@f5.com"
+  custom_tags                          = {
+    Owner = "c.klewar@f5.com"
+  }
 }
 
 module "aws_vpc_multi_node" {
@@ -83,6 +85,9 @@ module "aws_vpc_multi_node" {
   f5xc_aws_vpc_use_http_https_port     = true
   f5xc_aws_vpc_use_http_https_port_sli = true
   public_ssh_key                       = "ssh-rsa xyz"
+  custom_tags                          = {
+    Owner = "c.klewar@f5.com"
+  }
 }
 
 module "aws_vpc_multi_node_single_nic_existing_subnets" {
@@ -109,6 +114,9 @@ module "aws_vpc_multi_node_single_nic_existing_subnets" {
   f5xc_aws_vpc_use_http_https_port     = true
   f5xc_aws_vpc_use_http_https_port_sli = true
   public_ssh_key                       = "ssh-rsa xyz"
+  custom_tags                          = {
+    Owner = "c.klewar@f5.com"
+  }
 }
 
 module "aws_vpc_multi_node_multi_nic_existing_subnet" {
@@ -147,4 +155,7 @@ module "aws_vpc_multi_node_multi_nic_existing_subnet" {
   f5xc_aws_vpc_use_http_https_port     = true
   f5xc_aws_vpc_use_http_https_port_sli = true
   public_ssh_key                       = "ssh-rsa xyz"
+  custom_tags                          = {
+    Owner = "c.klewar@f5.com"
+  }
 }
