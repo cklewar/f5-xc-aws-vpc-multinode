@@ -32,7 +32,6 @@ module "aws_vpc_multi_node_single_nic" {
   f5xc_aws_cred                   = "aws-01"
   f5xc_aws_vpc_site_name          = format("%s-vpc-multi-node-single-nic-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-multi-nic-%s", var.project_prefix, var.project_suffix)
-  f5xc_aws_vpc_az_name            = "us-east-2a"
   f5xc_aws_vpc_primary_ipv4       = "192.168.168.0/21"
   f5xc_aws_vpc_total_worker_nodes = 2
   f5xc_aws_ce_gw_type             = "single_nic"
@@ -61,7 +60,6 @@ module "aws_vpc_multi_node" {
   f5xc_aws_cred                   = "aws-01"
   f5xc_aws_vpc_site_name          = format("%s-vpc-multi-node-multi-nic-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-multi-nic-%s", var.project_prefix, var.project_suffix)
-  f5xc_aws_vpc_az_name            = "us-east-2a"
   f5xc_aws_vpc_primary_ipv4       = "192.168.168.0/21"
   f5xc_aws_vpc_total_worker_nodes = 2
   f5xc_aws_ce_gw_type             = "multi_nic"
