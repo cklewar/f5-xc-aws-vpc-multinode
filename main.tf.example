@@ -46,9 +46,9 @@ module "aws_vpc_single_nic_existing_subnets" {
   aws_az_name        = "us-east-2a"
   aws_region         = "us-east-2"
   aws_vpc_cidr_block = "172.16.40.0/21"
-  aws_vpc_name       = format("%s-aws-vpc-single-nic-existing-subnets-%s", var.project_prefix, var.project_suffix)
+  aws_vpc_name       = format("%s-aws-vpc-single-nic-existing-sn-%s", var.project_prefix, var.project_suffix)
   custom_tags        = {
-    Name  = format("%s-aws-vpc-%s", var.project_prefix, var.project_suffix)
+    Name  = format("%s-aws-vpc-single-nic-existing-sn-%s", var.project_prefix, var.project_suffix)
     Owner = "c.klewar@f5.com"
   }
 }
@@ -58,9 +58,9 @@ module "aws_vpc_multi_nic_existing_subnet" {
   aws_az_name        = "us-east-2a"
   aws_region         = "us-east-2"
   aws_vpc_cidr_block = "172.16.48.0/20"
-  aws_vpc_name       = format("%s-aws-vpc-multi-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
+  aws_vpc_name       = format("%s-aws-vpc-multi-nic-existing-sn-%s", var.project_prefix, var.project_suffix)
   custom_tags        = {
-    Name  = format("%s-aws-vpc-%s", var.project_prefix, var.project_suffix)
+    Name  = format("%s-aws-vpc-multi-nic-existing-sn-%s", var.project_prefix, var.project_suffix)
     Owner = "c.klewar@f5.com"
   }
 }
@@ -226,8 +226,8 @@ module "aws_vpc_multi_node_single_nic_new_subnet" {
   f5xc_tenant                     = var.f5xc_tenant
   f5xc_aws_region                 = "us-east-2"
   f5xc_aws_cred                   = "ck-aws-01"
-  f5xc_aws_vpc_site_name          = format("%s-vpc-multi-node-single-nic-%s", var.project_prefix, var.project_suffix)
-  f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-multi-nic-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_site_name          = format("%s-vpc-mn-single-nic-new-sn-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_name_tag           = format("%s-vpc-mn-single-nic-new-sn-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_primary_ipv4       = "192.168.168.0/21"
   f5xc_aws_vpc_total_worker_nodes = 2
   f5xc_aws_ce_gw_type             = "single_nic"
@@ -256,7 +256,7 @@ module "aws_vpc_multi_node_single_nic_new_subnet_wait_for_online" {
   f5xc_api_url   = var.f5xc_api_url
   f5xc_namespace = "system"
   f5xc_tenant    = var.f5xc_tenant
-  f5xc_site_name = format("%s-vpc-multi-node-single-nic-%s", var.project_prefix, var.project_suffix)
+  f5xc_site_name = format("%s-vpc-mn-single-nic-new-sn-%s", var.project_prefix, var.project_suffix)
 }
 
 module "aws_vpc_multi_node_multi_nic_new_subnet" {
@@ -267,8 +267,8 @@ module "aws_vpc_multi_node_multi_nic_new_subnet" {
   f5xc_tenant                     = var.f5xc_tenant
   f5xc_aws_region                 = "us-east-2"
   f5xc_aws_cred                   = "ck-aws-01"
-  f5xc_aws_vpc_site_name          = format("%s-vpc-multi-node-multi-nic-%s", var.project_prefix, var.project_suffix)
-  f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-multi-nic-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_site_name          = format("%s-vpc-mn-multi-nic-new-sn-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_name_tag           = format("%s-vpc-mn-multi-nic-new-sn-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_primary_ipv4       = "192.168.168.0/21"
   f5xc_aws_vpc_total_worker_nodes = 2
   f5xc_aws_ce_gw_type             = "multi_nic"
@@ -305,7 +305,7 @@ module "aws_vpc_multi_node_multi_nic_new_subnet_wait_for_online" {
   f5xc_api_url   = var.f5xc_api_url
   f5xc_namespace = "system"
   f5xc_tenant    = var.f5xc_tenant
-  f5xc_site_name = format("%s-vpc-multi-node-multi-nic-%s", var.project_prefix, var.project_suffix)
+  f5xc_site_name = format("%s-vpc-mn-multi-nic-new-sn-%s", var.project_prefix, var.project_suffix)
 }
 
 module "f5xc_aws_vpc_multi_node_single_nic_existing_subnets" {
@@ -316,8 +316,8 @@ module "f5xc_aws_vpc_multi_node_single_nic_existing_subnets" {
   f5xc_tenant                     = var.f5xc_tenant
   f5xc_aws_region                 = "us-east-2"
   f5xc_aws_cred                   = "ck-aws-01"
-  f5xc_aws_vpc_site_name          = format("%s-vpc-multi-node-single-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
-  f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-single-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_site_name          = format("%s-vpc-mn-single-nic-existing-sn-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_name_tag           = format("%s-vpc-mn-single-nic-existing-sn-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_total_worker_nodes = 2
   f5xc_aws_ce_gw_type             = "single_nic"
   f5xc_aws_vpc_existing_id        = module.aws_vpc_single_nic_existing_subnets.aws_vpc["id"]
@@ -354,7 +354,7 @@ module "f5xc_aws_vpc_multi_node_single_nic_existing_subnets_wait_for_online" {
   f5xc_api_url   = var.f5xc_api_url
   f5xc_namespace = "system"
   f5xc_tenant    = var.f5xc_tenant
-  f5xc_site_name = format("%s-vpc-multi-node-single-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
+  f5xc_site_name = format("%s-vpc-mn-single-nic-existing-sn-%s", var.project_prefix, var.project_suffix)
 }
 
 module "f5xc_aws_vpc_multi_node_multi_nic_existing_subnet" {
@@ -365,8 +365,8 @@ module "f5xc_aws_vpc_multi_node_multi_nic_existing_subnet" {
   f5xc_tenant                     = var.f5xc_tenant
   f5xc_aws_region                 = "us-east-2"
   f5xc_aws_cred                   = "ck-aws-01"
-  f5xc_aws_vpc_site_name          = format("%s-vpc-multi-node-multi-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
-  f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-single-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_site_name          = format("%s-vpc-mn-multi-nic-existing-sn-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_name_tag           = format("%s-vpc-mn-multi-nic-existing-sn-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_total_worker_nodes = 2
   f5xc_aws_vpc_existing_id        = module.aws_vpc_multi_nic_existing_subnet.aws_vpc["id"]
   f5xc_aws_ce_gw_type             = "multi_nic"
@@ -409,5 +409,5 @@ module "f5xc_aws_vpc_multi_node_multi_nic_existing_subnet_wait_for_online" {
   f5xc_api_url   = var.f5xc_api_url
   f5xc_namespace = "system"
   f5xc_tenant    = var.f5xc_tenant
-  f5xc_site_name = format("%s-vpc-multi-node-multi-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
+  f5xc_site_name = format("%s-vpc-mn-multi-nic-existing-sn-%s", var.project_prefix, var.project_suffix)
 }
