@@ -90,7 +90,7 @@ module "aws_subnet_single_nic_existing_subnets" {
         Name  = local.node1_single_nic_local_subnet
         Owner = "c.klewar@f5.com"
       }
-    }
+    },
     {
       name                    = local.node2_single_nic_local_subnet
       map_public_ip_on_launch = true
