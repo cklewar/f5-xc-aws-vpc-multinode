@@ -87,6 +87,8 @@ jobs:
       - name: Terraform Plan
         id: plan
         env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
           TF_VAR_f5xc_api_url: ${{ secrets.f5xc_api_url }}
           TF_VAR_f5xc_api_p12_file: ${{ secrets.f5xc_api_p12_file }}
@@ -141,6 +143,8 @@ jobs:
       - name: Terraform Apply
         id: apply
         env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
           TF_VAR_f5xc_api_url: ${{ secrets.f5xc_api_url }}
           TF_VAR_f5xc_api_p12_file: ${{ secrets.f5xc_api_p12_file }}
@@ -195,6 +199,8 @@ jobs:
       - name: Terraform Destroy
         id: destroy
         env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
           TF_VAR_f5xc_api_url: ${{ secrets.f5xc_api_url }}
           TF_VAR_f5xc_api_p12_file: ${{ secrets.f5xc_api_p12_file }}
