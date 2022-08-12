@@ -7,7 +7,7 @@ variable "project_prefix" {
 variable "project_suffix" {
   type        = string
   description = "prefix string put at the end of string"
-  default     = "01"
+  default     = "02"
 }
 
 variable "f5xc_api_p12_file" {
@@ -102,7 +102,7 @@ module "aws_vpc_multi_node_single_nic_existing_subnets" {
   f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-single-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_total_worker_nodes = 2
   f5xc_aws_ce_gw_type             = "single_nic"
-  f5xc_aws_vpc_existing_id        = "vpc_id_abc"
+  f5xc_aws_vpc_existing_id        = "vpc-19629374444f5556e"
   f5xc_aws_vpc_az_nodes           = {
     node0 = { f5xc_aws_vpc_local_existing_subnet_id = "subnet-0dc56ecea30af4773", f5xc_aws_vpc_az_name = "us-east-2a" },
     node1 = { f5xc_aws_vpc_local_existing_subnet_id = "subnet-0dc56ecea30af4774", f5xc_aws_vpc_az_name = "us-east-2a" },
@@ -130,7 +130,7 @@ module "aws_vpc_multi_node_multi_nic_existing_subnet" {
   f5xc_aws_vpc_site_name          = format("%s-vpc-multi-node-multi-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-single-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_total_worker_nodes = 2
-  f5xc_aws_vpc_existing_id        = "vpc_id_abc"
+  f5xc_aws_vpc_existing_id        = "vpc-09629372492f5556a"
   f5xc_aws_ce_gw_type             = "multi_nic"
   f5xc_aws_vpc_az_nodes           = {
     node0 = {
