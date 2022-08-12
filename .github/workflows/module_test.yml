@@ -186,7 +186,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_wrapper: false
-          continue-on-error: true
+        continue-on-error: true
       - name: Terraform Init
         id: init
         env:
