@@ -29,7 +29,7 @@ module "aws_vpc_multi_node_single_nic_new_subnet" {
   f5xc_namespace                  = "system"
   f5xc_tenant                     = var.f5xc_tenant
   f5xc_aws_region                 = "us-east-2"
-  f5xc_aws_cred                   = "aws-01"
+  f5xc_aws_cred                   = "ck-aws-01"
   f5xc_aws_vpc_site_name          = format("%s-vpc-multi-node-single-nic-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-multi-nic-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_primary_ipv4       = "192.168.168.0/21"
@@ -59,7 +59,7 @@ module "aws_vpc_multi_node_multi_nic_new_subnet" {
   f5xc_namespace                  = "system"
   f5xc_tenant                     = var.f5xc_tenant
   f5xc_aws_region                 = "us-east-2"
-  f5xc_aws_cred                   = "aws-01"
+  f5xc_aws_cred                   = "ck-aws-01"
   f5xc_aws_vpc_site_name          = format("%s-vpc-multi-node-multi-nic-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-multi-nic-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_primary_ipv4       = "192.168.168.0/21"
@@ -97,7 +97,7 @@ module "aws_vpc_multi_node_single_nic_existing_subnets" {
   f5xc_namespace                  = "system"
   f5xc_tenant                     = var.f5xc_tenant
   f5xc_aws_region                 = "us-east-2"
-  f5xc_aws_cred                   = "cred-aws-01"
+  f5xc_aws_cred                   = "ck-aws-01"
   f5xc_aws_vpc_site_name          = format("%s-vpc-multi-node-single-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-single-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_total_worker_nodes = 2
@@ -126,7 +126,7 @@ module "aws_vpc_multi_node_multi_nic_existing_subnet" {
   f5xc_namespace                  = "system"
   f5xc_tenant                     = var.f5xc_tenant
   f5xc_aws_region                 = "us-east-2"
-  f5xc_aws_cred                   = "aws-01"
+  f5xc_aws_cred                   = "ck-aws-01"
   f5xc_aws_vpc_site_name          = format("%s-vpc-multi-node-multi-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag           = format("%s-vpc-multi-node-single-nic-existing-subnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_total_worker_nodes = 2
