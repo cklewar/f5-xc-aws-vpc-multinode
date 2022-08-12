@@ -104,9 +104,9 @@ module "aws_vpc_multi_node_single_nic_existing_subnets" {
   f5xc_aws_ce_gw_type             = "single_nic"
   f5xc_aws_vpc_existing_id        = "vpc_id_abc"
   f5xc_aws_vpc_az_nodes           = {
-    node0 = { f5xc_aws_vpc_local_existing_subnet_id = "node0-subnet-id", f5xc_aws_vpc_az_name = "us-east-2a" },
-    node1 = { f5xc_aws_vpc_local_existing_subnet_id = "node1-subnet-id", f5xc_aws_vpc_az_name = "us-east-2a" },
-    node2 = { f5xc_aws_vpc_local_existing_subnet_id = "node2-subnet-id", f5xc_aws_vpc_az_name = "us-east-2a" }
+    node0 = { f5xc_aws_vpc_local_existing_subnet_id = "subnet-0dc56ecea30af4773", f5xc_aws_vpc_az_name = "us-east-2a" },
+    node1 = { f5xc_aws_vpc_local_existing_subnet_id = "subnet-0dc56ecea30af4774", f5xc_aws_vpc_az_name = "us-east-2a" },
+    node2 = { f5xc_aws_vpc_local_existing_subnet_id = "subnet-0dc56ecea30af4775", f5xc_aws_vpc_az_name = "us-east-2a" }
   }
   f5xc_aws_default_ce_os_version       = true
   f5xc_aws_default_ce_sw_version       = true
@@ -134,19 +134,20 @@ module "aws_vpc_multi_node_multi_nic_existing_subnet" {
   f5xc_aws_ce_gw_type             = "multi_nic"
   f5xc_aws_vpc_az_nodes           = {
     node0 = {
-      f5xc_aws_vpc_workload_existing_subnet_id = "node0-subnet-workload-id",
-      f5xc_aws_vpc_inside_existing_subnet_id   = "node0-subnet-inside-id",
-      f5xc_aws_vpc_outside_existing_subnet_id  = "node0-subnet_outside-id", f5xc_aws_vpc_az_name = "us-east-2a"
+      f5xc_aws_vpc_workload_existing_subnet_id = "subnet-0dc56ecea60bf7935",
+      f5xc_aws_vpc_inside_existing_subnet_id   = "subnet-0dc56ecea60bf865",
+      f5xc_aws_vpc_outside_existing_subnet_id  = "subnet-0dc56ecea60bf4999", f5xc_aws_vpc_az_name = "us-east-2a"
+      f5xc_aws_vpc_outside_existing_subnet_id  = "subnet-0dc56ecea60bf4999", f5xc_aws_vpc_az_name = "us-east-2a"
     },
     node1 = {
-      f5xc_aws_vpc_workload_existing_subnet_id = "node1-subnet-workload_id",
-      f5xc_aws_vpc_inside_existing_subnet_id   = "node1-subnet-inside-id",
-      f5xc_aws_vpc_outside_existing_subnet_id  = "node1-subnet-outside-id", f5xc_aws_vpc_az_name = "us-east-2a"
+      f5xc_aws_vpc_workload_existing_subnet_id = "subnet-0dc56ecea60cf9763",
+      f5xc_aws_vpc_inside_existing_subnet_id   = "subnet-0dc56ecea60cf9863",
+      f5xc_aws_vpc_outside_existing_subnet_id  = "subnet-0dc56ecea60cf9963", f5xc_aws_vpc_az_name = "us-east-2a"
     },
     node2 = {
-      f5xc_aws_vpc_workload_existing_subnet_id = "node2-subnet-workload-id",
-      f5xc_aws_vpc_inside_existing_subnet_id   = "node2-subnet-inside-id",
-      f5xc_aws_vpc_outside_existing_subnet_id  = "node2-subnet_outside-id", f5xc_aws_vpc_az_name = "us-east-2a"
+      f5xc_aws_vpc_workload_existing_subnet_id = "subnet-0dc56ecea60cf2783",
+      f5xc_aws_vpc_inside_existing_subnet_id   = "subnet-0dc56ecea60cf2784",
+      f5xc_aws_vpc_outside_existing_subnet_id  = "subnet-0dc56ecea60cf2786", f5xc_aws_vpc_az_name = "us-east-2a"
     }
   }
   f5xc_aws_default_ce_os_version       = true
