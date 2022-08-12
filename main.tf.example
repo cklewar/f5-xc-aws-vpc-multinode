@@ -22,7 +22,6 @@ variable "f5xc_tenant" {
   type    = string
 }
 
-
 locals {
   node0_single_nic_local_subnet   = format("%s-aws-subnet-node0-single-nic-inside-%s", var.project_prefix, var.project_suffix)
   node1_single_nic_local_subnet   = format("%s-aws-subnet-node1-single-nic-outside-%s", var.project_prefix, var.project_suffix)
@@ -141,7 +140,7 @@ module "aws_subnet_multi_nic_existing_subnet" {
       cidr_block              = "172.16.50.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name  = node0_multi_nic_workload_subnet
+        Name  = local.node0_multi_nic_workload_subnet
         Owner = "c.klewar@f5.com"
       }
     },
