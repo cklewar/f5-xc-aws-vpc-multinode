@@ -92,6 +92,7 @@ jobs:
           VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
           TF_VAR_f5xc_api_url: ${{ secrets.f5xc_api_url }}
           TF_VAR_f5xc_api_p12_file: ${{ secrets.f5xc_api_p12_file }}
+          TF_VAR_f5xc_api_token: ${{ secrets.f5xc_api_token }}
           TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
           TF_VAR_f5xc_tenant: ${{ secrets.F5XC_TENANT }}
         run: terraform plan -no-color
@@ -148,6 +149,7 @@ jobs:
           VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
           TF_VAR_f5xc_api_url: ${{ secrets.f5xc_api_url }}
           TF_VAR_f5xc_api_p12_file: ${{ secrets.f5xc_api_p12_file }}
+          TF_VAR_f5xc_api_token: ${{ secrets.f5xc_api_token }}
           TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
           TF_VAR_f5xc_tenant: ${{ secrets.F5XC_TENANT }}
         run: terraform apply -auto-approve -no-color
@@ -204,6 +206,7 @@ jobs:
           VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
           TF_VAR_f5xc_api_url: ${{ secrets.f5xc_api_url }}
           TF_VAR_f5xc_api_p12_file: ${{ secrets.f5xc_api_p12_file }}
+          TF_VAR_f5xc_api_token: ${{ secrets.f5xc_api_token }}
           TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
           TF_VAR_f5xc_tenant: ${{ secrets.F5XC_TENANT }}
         run: terraform destroy -auto-approve -no-color
