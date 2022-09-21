@@ -10,13 +10,14 @@ jobs:
       - name: Check out repository and submodules
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           submodules: recursive
       - name: Checkout support repo
         uses: actions/checkout@v3
         with:
-          repository: cklewar/f5-xc-test
+          repository: cklewar/f5-xc-cert
           path: f5-xc-cert
-          token: ${{ secrets.PAT_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
       - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
       - name: List files in the repository
         run: |
@@ -55,13 +56,14 @@ jobs:
       - name: Check out repository and submodules
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           submodules: recursive
       - name: Checkout support repo
         uses: actions/checkout@v3
         with:
-          repository: cklewar/f5-xc-test
+          repository: cklewar/f5-xc-cert
           path: f5-xc-cert
-          token: ${{ secrets.PAT_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
       - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
       - name: List files in the repository
         run: |
@@ -112,13 +114,14 @@ jobs:
       - name: Check out repository and submodules
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           submodules: recursive
       - name: Checkout support repo
         uses: actions/checkout@v3
         with:
-          repository: cklewar/f5-xc-test
+          repository: cklewar/f5-xc-cert
           path: f5-xc-cert
-          token: ${{ secrets.PAT_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
       - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
       - name: List files in the repository
         run: |
@@ -169,13 +172,14 @@ jobs:
       - name: Check out repository and submodules
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           submodules: recursive
       - name: Checkout support repo
         uses: actions/checkout@v3
         with:
-          repository: cklewar/f5-xc-test
+          repository: cklewar/f5-xc-cert
           path: f5-xc-cert
-          token: ${{ secrets.PAT_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
       - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
       - name: List files in the repository
         run: |

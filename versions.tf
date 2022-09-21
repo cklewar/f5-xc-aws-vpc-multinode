@@ -12,7 +12,7 @@ terraform {
   required_providers {
     f5xc = {
       source  = "volterraedge/volterra"
-      version = ">= 0.11.11"
+      version = ">= 0.11.12"
     }
 
     local = ">= 2.2.3"
