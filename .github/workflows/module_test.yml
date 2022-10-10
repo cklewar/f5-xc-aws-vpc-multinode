@@ -41,7 +41,9 @@ jobs:
       - name: Terraform Init
         id: init
         env:
-          VES_P12_PASSWORD: ${{ secrets.VES_P12_PASSWORD }}
+          TF_VAR_f5xc_api_url: ${{ secrets.F5XC_API_URL }}
+          TF_VAR_f5xc_api_p12_file: ${{ secrets.F5XC_API_P12_FILE }}
+          TF_VAR_f5xc_api_token: ${{ secrets.F5XC_API_TOKEN }}
           TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
         run: terraform init
       - name: Terraform Validate
