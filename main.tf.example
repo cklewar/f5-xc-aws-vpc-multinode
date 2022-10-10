@@ -51,6 +51,17 @@ locals {
   node2_multi_nic_workload_subnet = format("%s-snet-node2-mnic-workload-%s", var.project_prefix, var.project_suffix)
 }
 
+provider "volterra" {
+  api_p12_file = var.f5xc_api_p12_file
+  url          = var.f5xc_api_url
+  alias        = "default"
+}
+
+provider "aws" {
+  region = "us-east-2"
+  alias  = "us-east-2"
+}
+
 module "vpc__single_node_single_nic_existing_vpc_existing_subnet" {
   source             = "./modules/aws/vpc"
   aws_az_name        = "us-east-2a"
@@ -60,6 +71,9 @@ module "vpc__single_node_single_nic_existing_vpc_existing_subnet" {
   custom_tags        = {
     Name  = format("%s-vpc-snode-snic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
     Owner = "c.klewar@f5.com"
+  }
+  providers = {
+    aws = aws.us-east-2
   }
 }
 
@@ -73,6 +87,9 @@ module "vpc__single_node_multi_nic_existing_vpc_existing_subnet" {
     Name  = format("%s-vpc-snode-mnic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
     Owner = "c.klewar@f5.com"
   }
+  providers = {
+    aws = aws.us-east-2
+  }
 }
 
 module "vpc__multi_node_single_nic_existing_vpc_existing_subnet" {
@@ -84,6 +101,9 @@ module "vpc__multi_node_single_nic_existing_vpc_existing_subnet" {
   custom_tags        = {
     Name  = format("%s-vpc-mnode-snic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
     Owner = "c.klewar@f5.com"
+  }
+  providers = {
+    aws = aws.us-east-2
   }
 }
 
@@ -97,11 +117,9 @@ module "vpc__multi_node_multi_nic_existing_vpc_existing_subnet" {
     Name  = format("%s-vpc-mnode-mnic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
     Owner = "c.klewar@f5.com"
   }
-}
-
-provider "aws" {
-  region = "us-east-2"
-  alias  = "us-east-2"
+  providers = {
+    aws = aws.us-east-2
+  }
 }
 
 module "subnet__single_node_single_nic_existing_vpc_existing_subnet" {
@@ -322,8 +340,6 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
 
 module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet" {
   source                    = "./modules/f5xc/site/aws/vpc"
-  f5xc_api_p12_file         = var.f5xc_api_p12_file
-  f5xc_api_url              = var.f5xc_api_url
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
   f5xc_aws_region           = "us-east-2"
@@ -345,6 +361,9 @@ module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet" {
   custom_tags                          = {
     Owner = "c.klewar@f5.com"
   }
+  providers = {
+    volterra = volterra.default
+  }
 }
 
 module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet_wait_for_online" {
@@ -359,8 +378,6 @@ module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet_wait_for_online" 
 
 module "f5xc_aws_vpc_single_node_multi_nic_new_vpc_new_subnet" {
   source                    = "./modules/f5xc/site/aws/vpc"
-  f5xc_api_p12_file         = var.f5xc_api_p12_file
-  f5xc_api_url              = var.f5xc_api_url
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
   f5xc_aws_region           = "us-east-2"
@@ -385,6 +402,9 @@ module "f5xc_aws_vpc_single_node_multi_nic_new_vpc_new_subnet" {
   custom_tags                          = {
     Owner = "c.klewar@f5.com"
   }
+  providers = {
+    volterra = volterra.default
+  }
 }
 
 module "f5xc_aws_vpc_single_node_multi_nic_new_vpc_new_subnet_wait_for_online" {
@@ -399,8 +419,6 @@ module "f5xc_aws_vpc_single_node_multi_nic_new_vpc_new_subnet_wait_for_online" {
 
 module "f5xc_aws_vpc_single_node_single_nic_existing_vpc_existing_subnet" {
   source                   = "./modules/f5xc/site/aws/vpc"
-  f5xc_api_p12_file        = var.f5xc_api_p12_file
-  f5xc_api_url             = var.f5xc_api_url
   f5xc_namespace           = var.f5xc_namespace
   f5xc_tenant              = var.f5xc_tenant
   f5xc_aws_region          = "us-east-2"
@@ -425,6 +443,9 @@ module "f5xc_aws_vpc_single_node_single_nic_existing_vpc_existing_subnet" {
   custom_tags                          = {
     Owner = "c.klewar@f5.com"
   }
+  providers = {
+    volterra = volterra.default
+  }
 }
 
 module "f5xc_aws_vpc_single_node_single_nic_existing_vpc_existing_subnet_wait_for_online" {
@@ -439,8 +460,6 @@ module "f5xc_aws_vpc_single_node_single_nic_existing_vpc_existing_subnet_wait_fo
 
 module "f5xc_aws_vpc_single_node_multi_nic_existing_vpc_existing_subnet" {
   source                   = "./modules/f5xc/site/aws/vpc"
-  f5xc_api_p12_file        = var.f5xc_api_p12_file
-  f5xc_api_url             = var.f5xc_api_url
   f5xc_namespace           = var.f5xc_namespace
   f5xc_tenant              = var.f5xc_tenant
   f5xc_aws_region          = "us-east-2"
@@ -467,6 +486,9 @@ module "f5xc_aws_vpc_single_node_multi_nic_existing_vpc_existing_subnet" {
   custom_tags                          = {
     Owner = "c.klewar@f5.com"
   }
+  providers = {
+    volterra = volterra.default
+  }
 }
 
 module "f5xc_aws_vpc_single_node_multi_nic_existing_vpc_existing_subnet_wait_for_online" {
@@ -481,8 +503,6 @@ module "f5xc_aws_vpc_single_node_multi_nic_existing_vpc_existing_subnet_wait_for
 
 module "f5xc_aws_vpc_multi_node_single_nic_new_vpc_new_subnet" {
   source                    = "./modules/f5xc/site/aws/vpc"
-  f5xc_api_p12_file         = var.f5xc_api_p12_file
-  f5xc_api_url              = var.f5xc_api_url
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
   f5xc_aws_region           = "us-east-2"
@@ -506,6 +526,9 @@ module "f5xc_aws_vpc_multi_node_single_nic_new_vpc_new_subnet" {
   custom_tags                          = {
     Owner = "c.klewar@f5.com"
   }
+  providers = {
+    volterra = volterra.default
+  }
 }
 
 module "f5xc_aws_vpc_multi_node_single_nic_new_vpc_new_subnet_wait_for_online" {
@@ -520,8 +543,6 @@ module "f5xc_aws_vpc_multi_node_single_nic_new_vpc_new_subnet_wait_for_online" {
 
 module "f5xc_aws_vpc_multi_node_single_nic_existing_vpc_existing_subnet" {
   source                   = "./modules/f5xc/site/aws/vpc"
-  f5xc_api_p12_file        = var.f5xc_api_p12_file
-  f5xc_api_url             = var.f5xc_api_url
   f5xc_namespace           = var.f5xc_namespace
   f5xc_tenant              = var.f5xc_tenant
   f5xc_aws_region          = "us-east-2"
@@ -554,6 +575,9 @@ module "f5xc_aws_vpc_multi_node_single_nic_existing_vpc_existing_subnet" {
   custom_tags                          = {
     Owner = "c.klewar@f5.com"
   }
+  providers = {
+    volterra = volterra.default
+  }
 }
 
 module "f5xc_aws_vpc_multi_node_single_nic_existing_vpc_existing_subnet_wait_for_online" {
@@ -568,8 +592,6 @@ module "f5xc_aws_vpc_multi_node_single_nic_existing_vpc_existing_subnet_wait_for
 
 module "f5xc_aws_vpc_multi_node_multi_nic_new_vpc_new_subnet" {
   source                    = "./modules/f5xc/site/aws/vpc"
-  f5xc_api_p12_file         = var.f5xc_api_p12_file
-  f5xc_api_url              = var.f5xc_api_url
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
   f5xc_aws_region           = "us-east-2"
@@ -602,6 +624,9 @@ module "f5xc_aws_vpc_multi_node_multi_nic_new_vpc_new_subnet" {
   custom_tags                          = {
     Owner = "c.klewar@f5.com"
   }
+  providers = {
+    volterra = volterra.default
+  }
 }
 
 module "f5xc_aws_vpc_multi_node_multi_nic_new_vpc_new_subnet_wait_for_online" {
@@ -616,8 +641,6 @@ module "f5xc_aws_vpc_multi_node_multi_nic_new_vpc_new_subnet_wait_for_online" {
 
 /*module "f5xc_aws_vpc_multi_node_multi_nic_existing_vpc_existing_subnet" {
   source                   = "./modules/f5xc/site/aws/vpc"
-  f5xc_api_p12_file        = var.f5xc_api_p12_file
-  f5xc_api_url             = var.f5xc_api_url
   f5xc_namespace           = var.f5xc_namespace
   f5xc_tenant              = var.f5xc_tenant
   f5xc_aws_region          = "us-east-2"
@@ -656,6 +679,10 @@ module "f5xc_aws_vpc_multi_node_multi_nic_new_vpc_new_subnet_wait_for_online" {
   public_ssh_key                       = "ssh-rsa xyz"
   custom_tags                          = {
     Owner = "c.klewar@f5.com"
+  }
+  providers      = {
+    aws = aws.us-east-2
+    volterra = volterra.default
   }
 }
 
