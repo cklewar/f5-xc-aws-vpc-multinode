@@ -38,7 +38,7 @@ variable "f5xc_aws_cred" {
 
 variable "owner_tag" {
   type    = string
-  default = var.owner_tag
+  default = "c.klewar@f5.com"
 }
 
 locals {
