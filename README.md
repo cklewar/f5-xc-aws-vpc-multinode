@@ -63,12 +63,6 @@ provider "volterra" {
   alias        = "default"
 }
 
-provider "volterra" {
-  api_p12_file = var.f5xc_api_p12_file
-  url          = var.f5xc_api_url
-  alias        = "default"
-}
-
 module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet" {
   source                    = "./modules/f5xc/site/aws/vpc"
   f5xc_namespace            = var.f5xc_namespace
