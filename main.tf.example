@@ -393,6 +393,7 @@ module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet" {
     Owner = var.owner_tag
   }
   providers = {
+    aws      = aws.us-east-2
     volterra = volterra.default
   }
 }
