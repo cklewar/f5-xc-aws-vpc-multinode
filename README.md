@@ -65,6 +65,8 @@ provider "volterra" {
 
 module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet" {
   source                    = "./modules/f5xc/site/aws/vpc"
+  f5xc_api_url              = var.f5xc_api_url
+  f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
   f5xc_aws_region           = "us-east-2"
@@ -127,6 +129,8 @@ provider "volterra" {
 
 module "aws_vpc_multi_node_multi_nic_new_subnet" {
   source                          = "./modules/f5xc/site/aws/vpc"
+  f5xc_api_url              = var.f5xc_api_url
+  f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace                  = "system"
   f5xc_tenant                     = var.f5xc_tenant
   f5xc_aws_region                 = "us-east-2"
@@ -200,6 +204,8 @@ provider "volterra" {
 
 module "aws_vpc_multi_node_single_nic_existing_subnets" {
   source                          = "./modules/f5xc/site/aws/vpc"
+  f5xc_api_url              = var.f5xc_api_url
+  f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace                  = "system"
   f5xc_tenant                     = var.f5xc_tenant
   f5xc_aws_region                 = "us-east-2"
@@ -264,6 +270,8 @@ provider "volterra" {
 
 module "aws_vpc_multi_node_multi_nic_existing_subnet" {
   source                          = "./modules/f5xc/site/aws/vpc"
+  f5xc_api_url              = var.f5xc_api_url
+  f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace                  = "system"
   f5xc_tenant                     = var.f5xc_tenant
   f5xc_aws_region                 = "us-east-2"
