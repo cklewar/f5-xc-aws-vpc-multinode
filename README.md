@@ -89,6 +89,7 @@ module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet" {
     Owner = var.owner_tag
   }
   providers = {
+    aws      = aws.us-east-2
     volterra = volterra.default
   }
 }
@@ -164,6 +165,7 @@ module "aws_vpc_multi_node_multi_nic_new_subnet" {
     Owner = "c.klewar@f5.com"
   }
   providers = {
+    aws      = aws.us-east-2
     volterra = volterra.default
   }
 }
@@ -230,6 +232,7 @@ module "aws_vpc_multi_node_single_nic_existing_subnets" {
     Owner = "c.klewar@f5.com"
   }
   providers = {
+    aws      = aws.us-east-2
     volterra = volterra.default
   }
 }
@@ -308,6 +311,7 @@ module "aws_vpc_multi_node_multi_nic_existing_subnet" {
     Owner = "c.klewar@f5.com"
   }
   providers = {
+    aws      = aws.us-east-2
     volterra = volterra.default
   }
 }
