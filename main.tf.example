@@ -7,23 +7,23 @@ variable "project_prefix" {
 variable "project_suffix" {
   type        = string
   description = "prefix string put at the end of string"
-  default     = "01"
+  default     = "03"
 }
 
 variable "f5xc_api_p12_file" {
-  type = string
+  type    = string
 }
 
 variable "f5xc_api_url" {
-  type = string
+  type    = string
 }
 
 variable "f5xc_api_token" {
-  type = string
+  type    = string
 }
 
 variable "f5xc_tenant" {
-  type = string
+  type    = string
 }
 
 variable "f5xc_namespace" {
@@ -43,7 +43,6 @@ variable "owner_tag" {
 
 variable "ssh_public_key_file" {
   type    = string
-  default = "/Users/c.klewar/Projects/github.com/cklewar/volterra/f5-xc-cert/keys/key.pub"
 }
 
 locals {
@@ -153,30 +152,21 @@ module "subnet__single_node_multi_nic_existing_vpc_existing_subnet" {
       map_public_ip_on_launch = false
       cidr_block              = "172.16.40.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node0_multi_nic_inside_subnet
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node0_multi_nic_inside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node0_multi_nic_outside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.41.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node0_multi_nic_outside_subnet
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node0_multi_nic_outside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node0_multi_nic_workload_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.42.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node0_multi_nic_workload_subnet
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node0_multi_nic_workload_subnet }, local.custom_tags)
     }
   ]
   custom_tags = local.custom_tags
@@ -194,33 +184,21 @@ module "subnet__multi_node_single_nic_existing_vpc_existing_subnet" {
       map_public_ip_on_launch = false
       cidr_block              = "172.16.44.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node0_single_nic_local_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node0_single_nic_local_subnet }, local.custom_tags)
     },
     {
       name                    = local.node1_single_nic_local_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.45.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node1_single_nic_local_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node1_single_nic_local_subnet }, local.custom_tags)
     },
     {
       name                    = local.node2_single_nic_local_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.46.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node2_single_nic_local_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node2_single_nic_local_subnet }, local.custom_tags)
     }
   ]
   custom_tags = local.custom_tags
@@ -238,99 +216,63 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       map_public_ip_on_launch = false
       cidr_block              = "172.16.48.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node0_multi_nic_inside_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node0_multi_nic_inside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node0_multi_nic_outside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.49.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node0_multi_nic_outside_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node0_multi_nic_outside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node0_multi_nic_workload_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.50.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node0_multi_nic_workload_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node0_multi_nic_workload_subnet }, local.custom_tags)
     },
     {
       name                    = local.node1_multi_nic_inside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.51.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node1_multi_nic_inside_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node1_multi_nic_inside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node1_multi_nic_outside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.52.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node1_multi_nic_outside_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node1_multi_nic_outside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node1_multi_nic_workload_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.53.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node1_multi_nic_workload_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node1_multi_nic_workload_subnet }, local.custom_tags)
     },
     {
       name                    = local.node2_multi_nic_inside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.54.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node2_multi_nic_inside_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node2_multi_nic_inside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node2_multi_nic_outside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.55.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node2_multi_nic_outside_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node2_multi_nic_outside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node2_multi_nic_workload_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.56.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node2_multi_nic_workload_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node2_multi_nic_workload_subnet }, local.custom_tags)
     }
   ]
   custom_tags = local.custom_tags
@@ -368,8 +310,12 @@ module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet" {
   }
 }
 
-module "apply_timeout_workaround" {
+output "site" {
+  value = module.f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet.f5xc_aws_vpc
+}
+
+/*module "apply_timeout_workaround" {
   source         = "./modules/utils/timeout"
   depend_on      = module.f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet.f5xc_aws_vpc
   create_timeout = "5400s"
-}
+}*/
