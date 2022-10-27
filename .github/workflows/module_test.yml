@@ -100,6 +100,7 @@ jobs:
           TF_VAR_f5xc_api_token: ${{ secrets.F5XC_API_TOKEN }}
           TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
           TF_VAR_f5xc_tenant: ${{ secrets.F5XC_TENANT }}
+          TF_VAR_ssh_public_key_file: ${{ secrets.SSH_PUBLIC_KEY_FILE }}
         run: terraform plan -no-color
         continue-on-error: false
       - name: Cleanup environment
@@ -158,6 +159,7 @@ jobs:
           TF_VAR_f5xc_api_token: ${{ secrets.F5XC_API_TOKEN }}
           TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
           TF_VAR_f5xc_tenant: ${{ secrets.F5XC_TENANT }}
+          TF_VAR_ssh_public_key_file: ${{ secrets.SSH_PUBLIC_KEY_FILE }}
         run: terraform apply -auto-approve -no-color
         continue-on-error: false
       - name: Cleanup environment
@@ -216,6 +218,7 @@ jobs:
           TF_VAR_f5xc_api_token: ${{ secrets.F5XC_API_TOKEN }}
           TF_TOKEN_app_terraform_io: ${{ secrets.TF_TOKEN_APP_TERRAFORM_IO }}
           TF_VAR_f5xc_tenant: ${{ secrets.F5XC_TENANT }}
+          TF_VAR_ssh_public_key_file: ${{ secrets.SSH_PUBLIC_KEY_FILE }}
         run: terraform destroy -auto-approve -no-color
         continue-on-error: false
       - name: Cleanup environment

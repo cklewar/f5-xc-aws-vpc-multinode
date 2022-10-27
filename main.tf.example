@@ -7,23 +7,23 @@ variable "project_prefix" {
 variable "project_suffix" {
   type        = string
   description = "prefix string put at the end of string"
-  default     = "02"
+  default     = "01"
 }
 
 variable "f5xc_api_p12_file" {
-  type    = string
+  type = string
 }
 
 variable "f5xc_api_url" {
-  type    = string
+  type = string
 }
 
 variable "f5xc_api_token" {
-  type    = string
+  type = string
 }
 
 variable "f5xc_tenant" {
-  type    = string
+  type = string
 }
 
 variable "f5xc_namespace" {
@@ -41,6 +41,10 @@ variable "owner_tag" {
   default = "c.klewar@f5.com"
 }
 
+variable "ssh_public_key_file" {
+  type    = string
+}
+
 locals {
   node0_single_nic_local_subnet   = format("%s-snet-node0-snic-inside-%s", var.project_prefix, var.project_suffix)
   node1_single_nic_local_subnet   = format("%s-snet-node1-snic-outside-%s", var.project_prefix, var.project_suffix)
@@ -54,6 +58,12 @@ locals {
   node2_multi_nic_inside_subnet   = format("%s-snet-node2-mnic-inside-%s", var.project_prefix, var.project_suffix)
   node2_multi_nic_outside_subnet  = format("%s-snet-node2-mnic-outside-%s", var.project_prefix, var.project_suffix)
   node2_multi_nic_workload_subnet = format("%s-snet-node2-mnic-workload-%s", var.project_prefix, var.project_suffix)
+
+  custom_tags = {
+    Owner        = var.owner_tag
+    f5xc-tenant  = var.f5xc_tenant
+    f5xc-feature = "aws-tgw-nfv-bigip"
+  }
 }
 
 provider "volterra" {
@@ -89,12 +99,8 @@ module "vpc__single_node_multi_nic_existing_vpc_existing_subnet" {
   aws_region         = "us-east-2"
   aws_vpc_cidr_block = "172.16.40.0/22"
   aws_vpc_name       = format("%s-vpc-snode-mnic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
-  custom_tags        = {
-    Name              = format("%s-vpc-snode-mnic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
-    Owner             = var.owner_tag
-    ves-io-creator-id = var.owner_tag
-  }
-  providers = {
+  custom_tags        = local.custom_tags
+  providers          = {
     aws = aws.us-east-2
   }
 }
@@ -105,12 +111,8 @@ module "vpc__multi_node_single_nic_existing_vpc_existing_subnet" {
   aws_region         = "us-east-2"
   aws_vpc_cidr_block = "172.16.44.0/22"
   aws_vpc_name       = format("%s-vpc-mnode-snic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
-  custom_tags        = {
-    Name              = format("%s-vpc-mnode-snic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
-    Owner             = var.owner_tag
-    ves-io-creator-id = var.owner_tag
-  }
-  providers = {
+  custom_tags        = local.custom_tags
+  providers          = {
     aws = aws.us-east-2
   }
 }
@@ -121,12 +123,8 @@ module "vpc__multi_node_multi_nic_existing_vpc_existing_subnet" {
   aws_region         = "us-east-2"
   aws_vpc_cidr_block = "172.16.48.0/20"
   aws_vpc_name       = format("%s-vpc-mnode-mnic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
-  custom_tags        = {
-    Name              = format("%s-vpc-mnode-mnic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
-    Owner             = var.owner_tag
-    ves-io-creator-id = var.owner_tag
-  }
-  providers = {
+  custom_tags        = local.custom_tags
+  providers          = {
     aws = aws.us-east-2
   }
 }
@@ -147,10 +145,7 @@ module "subnet__single_node_single_nic_existing_vpc_existing_subnet" {
       }
     }
   ]
-  custom_tags = {
-    Owner             = var.owner_tag
-    ves-io-creator-id = var.owner_tag
-  }
+  custom_tags = local.custom_tags
 
   providers = {
     aws = aws.us-east-2
@@ -195,10 +190,7 @@ module "subnet__single_node_multi_nic_existing_vpc_existing_subnet" {
       }
     }
   ]
-  custom_tags = {
-    Owner             = var.owner_tag
-    ves-io-creator-id = var.owner_tag
-  }
+  custom_tags = local.custom_tags
 
   providers = {
     aws = aws.us-east-2
@@ -243,10 +235,7 @@ module "subnet__multi_node_single_nic_existing_vpc_existing_subnet" {
       }
     }
   ]
-  custom_tags = {
-    Owner             = var.owner_tag
-    ves-io-creator-id = var.owner_tag
-  }
+  custom_tags = local.custom_tags
 
   providers = {
     aws = aws.us-east-2
@@ -357,10 +346,7 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       }
     }
   ]
-  custom_tags = {
-    Owner             = var.owner_tag
-    ves-io-creator-id = var.owner_tag
-  }
+  custom_tags = local.custom_tags
 
   providers = {
     aws = aws.us-east-2
@@ -375,8 +361,8 @@ module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet" {
   f5xc_tenant               = var.f5xc_tenant
   f5xc_aws_region           = "us-east-2"
   f5xc_aws_cred             = var.f5xc_aws_cred
-  f5xc_aws_vpc_site_name    = format("%s-vpc-sn-snic-new-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
-  f5xc_aws_vpc_name_tag     = format("%s-vpc-sn-snic-new-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_site_name    = format("%s-vpc-sn-snic-nvpc-and-nsnet-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_name_tag     = format("%s-vpc-sn-snic-nvpc-and-nsnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_primary_ipv4 = "192.168.168.0/21"
   f5xc_aws_ce_gw_type       = "single_nic"
   f5xc_aws_vpc_az_nodes     = {
@@ -388,12 +374,16 @@ module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet" {
   f5xc_aws_vpc_use_http_https_port     = true
   f5xc_aws_vpc_use_http_https_port_sli = true
   f5xc_labels                          = { "aws-env" = "shared" }
-  public_ssh_key                       = "ssh-rsa xyz"
-  custom_tags                          = {
-    Owner = var.owner_tag
-  }
-  providers = {
+  ssh_public_key                       = file(var.ssh_public_key_file)
+  custom_tags                          = local.custom_tags
+  providers                            = {
     aws      = aws.us-east-2
     volterra = volterra.default
   }
+}
+
+module "apply_timeout_workaround" {
+  source         = "./modules/utils/timeout"
+  depend_on      = module.f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet.f5xc_aws_vpc
+  create_timeout = "5400s"
 }
