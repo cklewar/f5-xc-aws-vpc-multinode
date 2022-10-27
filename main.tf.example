@@ -139,7 +139,7 @@ module "subnet__single_node_single_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.36.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node0_single_nic_local_subnet
+        SubnetName        = local.node0_single_nic_local_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -162,7 +162,7 @@ module "subnet__single_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.40.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node0_multi_nic_inside_subnet
+        SubnetName        = local.node0_multi_nic_inside_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -207,7 +207,7 @@ module "subnet__multi_node_single_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.44.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node0_single_nic_local_subnet
+        SubnetName        = local.node0_single_nic_local_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -252,7 +252,7 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.48.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node0_multi_nic_inside_subnet
+        SubnetName        = local.node0_multi_nic_inside_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -263,7 +263,7 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.49.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node0_multi_nic_outside_subnet
+        SubnetName        = local.node0_multi_nic_outside_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -274,7 +274,7 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.50.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node0_multi_nic_workload_subnet
+        SubnetName        = local.node0_multi_nic_workload_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -285,7 +285,7 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.51.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node1_multi_nic_inside_subnet
+        SubnetName        = local.node1_multi_nic_inside_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -296,7 +296,7 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.52.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node1_multi_nic_outside_subnet
+        SubnetName        = local.node1_multi_nic_outside_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -307,7 +307,7 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.53.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node1_multi_nic_workload_subnet
+        SubnetName        = local.node1_multi_nic_workload_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -318,7 +318,7 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.54.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node2_multi_nic_inside_subnet
+        SubnetName        = local.node2_multi_nic_inside_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -329,7 +329,7 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.55.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node2_multi_nic_outside_subnet
+        SubnetName        = local.node2_multi_nic_outside_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -340,7 +340,7 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.56.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node2_multi_nic_workload_subnet
+        SubnetName        = local.node2_multi_nic_workload_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
