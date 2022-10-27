@@ -43,6 +43,7 @@ variable "owner_tag" {
 
 variable "ssh_public_key_file" {
   type    = string
+  default = "/Users/c.klewar/Projects/github.com/cklewar/volterra/f5-xc-cert/keys/key.pub"
 }
 
 locals {
@@ -83,12 +84,8 @@ module "vpc__single_node_single_nic_existing_vpc_existing_subnet" {
   aws_region         = "us-east-2"
   aws_vpc_cidr_block = "172.16.36.0/22"
   aws_vpc_name       = format("%s-vpc-snode-snic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
-  custom_tags        = {
-    Name              = format("%s-vpc-snode-snic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
-    Owner             = var.owner_tag
-    ves-io-creator-id = ""
-  }
-  providers = {
+  custom_tags        = local.custom_tags
+  providers          = {
     aws = aws.us-east-2
   }
 }
@@ -138,16 +135,11 @@ module "subnet__single_node_single_nic_existing_vpc_existing_subnet" {
       map_public_ip_on_launch = false
       cidr_block              = "172.16.36.0/24"
       availability_zone       = "us-east-2a"
-      custom_tags             = {
-        SubnetName        = local.node0_single_nic_local_subnet
-        Owner             = var.owner_tag
-        ves-io-creator-id = var.owner_tag
-      }
+      custom_tags             = merge({ SubnetName = local.node0_single_nic_local_subnet }, local.custom_tags)
     }
   ]
   custom_tags = local.custom_tags
-
-  providers = {
+  providers   = {
     aws = aws.us-east-2
   }
 }
@@ -163,7 +155,6 @@ module "subnet__single_node_multi_nic_existing_vpc_existing_subnet" {
       availability_zone       = "us-east-2a"
       custom_tags             = {
         SubnetName        = local.node0_multi_nic_inside_subnet
-        Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
     },
@@ -173,8 +164,7 @@ module "subnet__single_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.41.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node0_multi_nic_outside_subnet
-        Owner             = var.owner_tag
+        SubnetName        = local.node0_multi_nic_outside_subnet
         ves-io-creator-id = var.owner_tag
       }
     },
@@ -184,15 +174,13 @@ module "subnet__single_node_multi_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.42.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node0_multi_nic_workload_subnet
-        Owner             = var.owner_tag
+        SubnetName        = local.node0_multi_nic_workload_subnet
         ves-io-creator-id = var.owner_tag
       }
     }
   ]
   custom_tags = local.custom_tags
-
-  providers = {
+  providers   = {
     aws = aws.us-east-2
   }
 }
@@ -218,7 +206,7 @@ module "subnet__multi_node_single_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.45.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node1_single_nic_local_subnet
+        SubnetName        = local.node1_single_nic_local_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
@@ -229,15 +217,14 @@ module "subnet__multi_node_single_nic_existing_vpc_existing_subnet" {
       cidr_block              = "172.16.46.0/24"
       availability_zone       = "us-east-2a"
       custom_tags             = {
-        Name              = local.node2_single_nic_local_subnet
+        SubnetName        = local.node2_single_nic_local_subnet
         Owner             = var.owner_tag
         ves-io-creator-id = var.owner_tag
       }
     }
   ]
   custom_tags = local.custom_tags
-
-  providers = {
+  providers   = {
     aws = aws.us-east-2
   }
 }
@@ -347,8 +334,7 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
     }
   ]
   custom_tags = local.custom_tags
-
-  providers = {
+  providers   = {
     aws = aws.us-east-2
   }
 }
