@@ -54,6 +54,11 @@ variable "f5xc_aws_cred" {
   default = "ck-aws-01"
 }
 
+variable "f5xc_aws_region" {
+  type    = string
+  default = "us-east-2"
+}
+
 variable "owner_tag" {
   type    = string
   default = "c.klewar@f5.com"
@@ -70,7 +75,7 @@ provider "volterra" {
 }
 
 provider "aws" {
-  region = "us-east-2"
+  region = var.f5xc_aws_region
   alias  = "us-east-2"
 }
 
@@ -92,7 +97,7 @@ module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet" {
   f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
-  f5xc_aws_region           = "us-east-2"
+  f5xc_aws_region           = var.f5xc_aws_region
   f5xc_aws_cred             = var.f5xc_aws_cred
   f5xc_aws_vpc_site_name    = format("%s-vpc-sn-snic-nvpc-and-nsnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag     = format("%s-vpc-sn-snic-nvpc-and-nsnet-%s", var.project_prefix, var.project_suffix)
@@ -129,7 +134,7 @@ module "f5xc_aws_vpc_single_node_multi_nic_new_vpc_new_subnet" {
   f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
-  f5xc_aws_region           = "us-east-2"
+  f5xc_aws_region           = var.f5xc_aws_region
   f5xc_aws_cred             = var.f5xc_aws_cred
   f5xc_aws_vpc_site_name    = format("%s-vpc-sn-mnic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag     = format("%s-vpc-sn-mnic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
@@ -169,7 +174,7 @@ module "f5xc_aws_vpc_multi_node_single_nic_new_vpc_new_subnet" {
   f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
-  f5xc_aws_region           = "us-east-2"
+  f5xc_aws_region           = var.f5xc_aws_region
   f5xc_aws_cred             = var.f5xc_aws_cred
   f5xc_aws_vpc_site_name    = format("%s-vpc-mn-snic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag     = format("%s-vpc-mn-snic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
@@ -208,7 +213,7 @@ module "f5xc_aws_vpc_multi_node_multi_nic_new_vpc_new_subnet" {
   f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
-  f5xc_aws_region           = "us-east-2"
+  f5xc_aws_region           = var.f5xc_aws_region
   f5xc_aws_cred             = var.f5xc_aws_cred
   f5xc_aws_vpc_site_name    = format("%s-vpc-mn-mnic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag     = format("%s-vpc-mn-mnic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
@@ -256,7 +261,7 @@ module "aws_vpc_multi_node_single_nic_existing_vpc_and_existing_subnets" {
   f5xc_api_token                  = var.f5xc_api_token
   f5xc_namespace                  = var.f5xc_namespace
   f5xc_tenant                     = var.f5xc_tenant
-  f5xc_aws_region                 = "us-east-2"
+  f5xc_aws_region                 = var.f5xc_aws_region
   f5xc_aws_cred                   = var.f5xc_aws_cred
   f5xc_aws_vpc_site_name          = format("%s-vpc-mn-snic-exists-vpc-snet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag           = format("%s-vpc-mn-snic-exists-vpc-snet-%s", var.project_prefix, var.project_suffix)
@@ -295,7 +300,7 @@ module "aws_vpc_multi_node_multi_nic_existing_vpc_and_existing_subnet" {
   f5xc_api_token                  = var.f5xc_api_token
   f5xc_namespace                  = var.f5xc_namespace
   f5xc_tenant                     = var.f5xc_tenant
-  f5xc_aws_region                 = "us-east-2"
+  f5xc_aws_region                 = var.f5xc_aws_region
   f5xc_aws_cred                   = var.f5xc_aws_cred
   f5xc_aws_vpc_site_name          = format("%s-vpc-mn-mnic-exists-vpc-snet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag           = format("%s-vpc-mn-mnic-exists-vpc-snet-%s", var.project_prefix, var.project_suffix)

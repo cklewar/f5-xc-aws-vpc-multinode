@@ -36,6 +36,16 @@ variable "f5xc_aws_cred" {
   default = "ck-aws-01"
 }
 
+variable "f5xc_aws_region" {
+  type    = string
+  default = "us-east-2"
+}
+
+variable "f5xc_aws_availability_zone" {
+  type    = string
+  default = "a"
+}
+
 variable "owner_tag" {
   type    = string
   default = "c.klewar@f5.com"
@@ -59,6 +69,8 @@ locals {
   node2_multi_nic_outside_subnet  = format("%s-snet-node2-mnic-outside-%s", var.project_prefix, var.project_suffix)
   node2_multi_nic_workload_subnet = format("%s-snet-node2-mnic-workload-%s", var.project_prefix, var.project_suffix)
 
+  aws_availability_zone = format("%s%s", var.f5xc_aws_region, var.f5xc_aws_availability_zone)
+
   custom_tags = {
     Owner        = var.owner_tag
     f5xc-tenant  = var.f5xc_tenant
@@ -73,14 +85,14 @@ provider "volterra" {
 }
 
 provider "aws" {
-  region = "us-east-2"
+  region = var.f5xc_aws_region
   alias  = "us-east-2"
 }
 
 module "vpc__single_node_single_nic_existing_vpc_existing_subnet" {
   source             = "./modules/aws/vpc"
-  aws_az_name        = "us-east-2a"
-  aws_region         = "us-east-2"
+  aws_az_name        = local.aws_availability_zone
+  aws_region         = var.f5xc_aws_region
   aws_vpc_cidr_block = "172.16.36.0/22"
   aws_vpc_name       = format("%s-vpc-snode-snic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
   custom_tags        = local.custom_tags
@@ -91,8 +103,8 @@ module "vpc__single_node_single_nic_existing_vpc_existing_subnet" {
 
 module "vpc__single_node_multi_nic_existing_vpc_existing_subnet" {
   source             = "./modules/aws/vpc"
-  aws_az_name        = "us-east-2a"
-  aws_region         = "us-east-2"
+  aws_az_name        = local.aws_availability_zone
+  aws_region         = var.f5xc_aws_region
   aws_vpc_cidr_block = "172.16.40.0/22"
   aws_vpc_name       = format("%s-vpc-snode-mnic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
   custom_tags        = local.custom_tags
@@ -103,8 +115,8 @@ module "vpc__single_node_multi_nic_existing_vpc_existing_subnet" {
 
 module "vpc__multi_node_single_nic_existing_vpc_existing_subnet" {
   source             = "./modules/aws/vpc"
-  aws_az_name        = "us-east-2a"
-  aws_region         = "us-east-2"
+  aws_az_name        = local.aws_availability_zone
+  aws_region         = var.f5xc_aws_region
   aws_vpc_cidr_block = "172.16.44.0/22"
   aws_vpc_name       = format("%s-vpc-mnode-snic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
   custom_tags        = local.custom_tags
@@ -115,8 +127,8 @@ module "vpc__multi_node_single_nic_existing_vpc_existing_subnet" {
 
 module "vpc__multi_node_multi_nic_existing_vpc_existing_subnet" {
   source             = "./modules/aws/vpc"
-  aws_az_name        = "us-east-2a"
-  aws_region         = "us-east-2"
+  aws_az_name        = local.aws_availability_zone
+  aws_region         = var.f5xc_aws_region
   aws_vpc_cidr_block = "172.16.48.0/20"
   aws_vpc_name       = format("%s-vpc-mnode-mnic-exist-vpc-and-snet-%s", var.project_prefix, var.project_suffix)
   custom_tags        = local.custom_tags
@@ -133,7 +145,7 @@ module "subnet__single_node_single_nic_existing_vpc_existing_subnet" {
       name                    = local.node0_single_nic_local_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.36.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node0_single_nic_local_subnet }, local.custom_tags)
     }
   ]
@@ -151,21 +163,21 @@ module "subnet__single_node_multi_nic_existing_vpc_existing_subnet" {
       name                    = local.node0_multi_nic_inside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.40.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node0_multi_nic_inside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node0_multi_nic_outside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.41.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node0_multi_nic_outside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node0_multi_nic_workload_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.42.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node0_multi_nic_workload_subnet }, local.custom_tags)
     }
   ]
@@ -183,21 +195,21 @@ module "subnet__multi_node_single_nic_existing_vpc_existing_subnet" {
       name                    = local.node0_single_nic_local_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.44.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node0_single_nic_local_subnet }, local.custom_tags)
     },
     {
       name                    = local.node1_single_nic_local_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.45.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node1_single_nic_local_subnet }, local.custom_tags)
     },
     {
       name                    = local.node2_single_nic_local_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.46.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node2_single_nic_local_subnet }, local.custom_tags)
     }
   ]
@@ -215,63 +227,63 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       name                    = local.node0_multi_nic_inside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.48.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node0_multi_nic_inside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node0_multi_nic_outside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.49.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node0_multi_nic_outside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node0_multi_nic_workload_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.50.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node0_multi_nic_workload_subnet }, local.custom_tags)
     },
     {
       name                    = local.node1_multi_nic_inside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.51.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node1_multi_nic_inside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node1_multi_nic_outside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.52.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node1_multi_nic_outside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node1_multi_nic_workload_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.53.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node1_multi_nic_workload_subnet }, local.custom_tags)
     },
     {
       name                    = local.node2_multi_nic_inside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.54.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node2_multi_nic_inside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node2_multi_nic_outside_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.55.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node2_multi_nic_outside_subnet }, local.custom_tags)
     },
     {
       name                    = local.node2_multi_nic_workload_subnet
       map_public_ip_on_launch = false
       cidr_block              = "172.16.56.0/24"
-      availability_zone       = "us-east-2a"
+      availability_zone       = local.aws_availability_zone
       custom_tags             = merge({ SubnetName = local.node2_multi_nic_workload_subnet }, local.custom_tags)
     }
   ]
@@ -287,14 +299,14 @@ module "f5xc_aws_vpc_single_node_single_nic_new_vpc_new_subnet" {
   f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
-  f5xc_aws_region           = "us-east-2"
+  f5xc_aws_region           = var.f5xc_aws_region
   f5xc_aws_cred             = var.f5xc_aws_cred
   f5xc_aws_vpc_site_name    = format("%s-vpc-sn-snic-nvpc-and-nsnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag     = format("%s-vpc-sn-snic-nvpc-and-nsnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_primary_ipv4 = "192.168.168.0/21"
   f5xc_aws_ce_gw_type       = "single_nic"
   f5xc_aws_vpc_az_nodes     = {
-    node0 = { f5xc_aws_vpc_local_subnet = "192.168.168.0/26", f5xc_aws_vpc_az_name = "us-east-2a" },
+    node0 = { f5xc_aws_vpc_local_subnet = "192.168.168.0/26", f5xc_aws_vpc_az_name = local.aws_availability_zone },
   }
   f5xc_aws_default_ce_os_version       = true
   f5xc_aws_default_ce_sw_version       = true
@@ -326,7 +338,7 @@ module "f5xc_aws_vpc_single_node_multi_nic_new_vpc_new_subnet" {
   f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
-  f5xc_aws_region           = "us-east-2"
+  f5xc_aws_region           = var.f5xc_aws_region
   f5xc_aws_cred             = var.f5xc_aws_cred
   f5xc_aws_vpc_site_name    = format("%s-vpc-sn-mnic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag     = format("%s-vpc-sn-mnic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
@@ -335,7 +347,7 @@ module "f5xc_aws_vpc_single_node_multi_nic_new_vpc_new_subnet" {
   f5xc_aws_vpc_az_nodes     = {
     node0 = {
       f5xc_aws_vpc_workload_subnet = "192.168.168.0/26", f5xc_aws_vpc_inside_subnet = "192.168.168.64/26",
-      f5xc_aws_vpc_outside_subnet  = "192.168.168.128/26", f5xc_aws_vpc_az_name = "us-east-2a"
+      f5xc_aws_vpc_outside_subnet  = "192.168.168.128/26", f5xc_aws_vpc_az_name = local.aws_availability_zone
     }
   }
   f5xc_aws_default_ce_os_version       = true
@@ -368,16 +380,16 @@ module "f5xc_aws_vpc_multi_node_single_nic_new_vpc_new_subnet" {
   f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
-  f5xc_aws_region           = "us-east-2"
+  f5xc_aws_region           = var.f5xc_aws_region
   f5xc_aws_cred             = var.f5xc_aws_cred
   f5xc_aws_vpc_site_name    = format("%s-vpc-mn-snic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag     = format("%s-vpc-mn-snic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_primary_ipv4 = "192.168.168.0/21"
   f5xc_aws_ce_gw_type       = "single_nic"
   f5xc_aws_vpc_az_nodes     = {
-    node0 = { f5xc_aws_vpc_local_subnet = "192.168.168.0/24", f5xc_aws_vpc_az_name = "us-east-2a" },
-    node1 = { f5xc_aws_vpc_local_subnet = "192.168.169.0/24", f5xc_aws_vpc_az_name = "us-east-2a" },
-    node2 = { f5xc_aws_vpc_local_subnet = "192.168.170.0/24", f5xc_aws_vpc_az_name = "us-east-2a" }
+    node0 = { f5xc_aws_vpc_local_subnet = "192.168.168.0/24", f5xc_aws_vpc_az_name = local.aws_availability_zone },
+    node1 = { f5xc_aws_vpc_local_subnet = "192.168.169.0/24", f5xc_aws_vpc_az_name = local.aws_availability_zone },
+    node2 = { f5xc_aws_vpc_local_subnet = "192.168.170.0/24", f5xc_aws_vpc_az_name = local.aws_availability_zone }
   }
   f5xc_aws_default_ce_os_version       = true
   f5xc_aws_default_ce_sw_version       = true
@@ -409,7 +421,7 @@ module "f5xc_aws_vpc_multi_node_multi_nic_new_vpc_new_subnet" {
   f5xc_api_token            = var.f5xc_api_token
   f5xc_namespace            = var.f5xc_namespace
   f5xc_tenant               = var.f5xc_tenant
-  f5xc_aws_region           = "us-east-2"
+  f5xc_aws_region           = var.f5xc_aws_region
   f5xc_aws_cred             = var.f5xc_aws_cred
   f5xc_aws_vpc_site_name    = format("%s-vpc-mn-mnic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
   f5xc_aws_vpc_name_tag     = format("%s-vpc-mn-mnic-nvpc-nsnet-%s", var.project_prefix, var.project_suffix)
@@ -418,15 +430,15 @@ module "f5xc_aws_vpc_multi_node_multi_nic_new_vpc_new_subnet" {
   f5xc_aws_vpc_az_nodes     = {
     node0 = {
       f5xc_aws_vpc_workload_subnet = "192.168.168.0/26", f5xc_aws_vpc_inside_subnet = "192.168.168.64/26",
-      f5xc_aws_vpc_outside_subnet  = "192.168.168.128/26", f5xc_aws_vpc_az_name = "us-east-2a"
+      f5xc_aws_vpc_outside_subnet  = "192.168.168.128/26", f5xc_aws_vpc_az_name = local.aws_availability_zone
     },
     node1 = {
       f5xc_aws_vpc_workload_subnet = "192.168.169.0/26", f5xc_aws_vpc_inside_subnet = "192.168.169.64/26",
-      f5xc_aws_vpc_outside_subnet  = "192.168.169.128/26", f5xc_aws_vpc_az_name = "us-east-2a"
+      f5xc_aws_vpc_outside_subnet  = "192.168.169.128/26", f5xc_aws_vpc_az_name = local.aws_availability_zone
     },
     node2 = {
       f5xc_aws_vpc_workload_subnet = "192.168.170.0/26", f5xc_aws_vpc_inside_subnet = "192.168.170.64/26",
-      f5xc_aws_vpc_outside_subnet  = "192.168.170.128/26", f5xc_aws_vpc_az_name = "us-east-2a"
+      f5xc_aws_vpc_outside_subnet  = "192.168.170.128/26", f5xc_aws_vpc_az_name = local.aws_availability_zone
     }
   }
   f5xc_aws_default_ce_os_version       = true
@@ -450,5 +462,46 @@ output "f5xc_aws_vpc_multi_node_multi_nic_new_vpc_new_subnet" {
 module "f5xc_aws_vpc_multi_node_multi_nic_new_vpc_new_subnet_apply_timeout_workaround" {
   source         = "./modules/utils/timeout"
   depend_on      = module.f5xc_aws_vpc_multi_node_multi_nic_new_vpc_new_subnet.f5xc_aws_vpc
+  create_timeout = "5400s"
+}
+
+module "aws_vpc_multi_node_single_nic_existing_vpc_and_existing_subnets" {
+  source                   = "./modules/f5xc/site/aws/vpc"
+  f5xc_api_url             = var.f5xc_api_url
+  f5xc_api_token           = var.f5xc_api_token
+  f5xc_namespace           = var.f5xc_namespace
+  f5xc_tenant              = var.f5xc_tenant
+  f5xc_aws_region          = var.f5xc_aws_region
+  f5xc_aws_cred            = var.f5xc_aws_cred
+  f5xc_aws_ce_gw_type      = "single_nic"
+  f5xc_aws_vpc_name_tag    = format("%s-vpc-mn-snic-exists-vpc-snet-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_site_name   = format("%s-vpc-mn-snic-exists-vpc-snet-%s", var.project_prefix, var.project_suffix)
+  f5xc_aws_vpc_existing_id = module.aws_vpc_multi_node_single_nic_existing_vpc_and_existing_subnets.f5xc_aws_vpc["id"]
+  f5xc_aws_vpc_az_nodes    = {
+    node0 = { f5xc_aws_vpc_local_existing_subnet_id = "node0_subnet_id", f5xc_aws_vpc_az_name = local.aws_availability_zone },
+    node1 = { f5xc_aws_vpc_local_existing_subnet_id = "node1_subnet_id", f5xc_aws_vpc_az_name = local.aws_availability_zone },
+    node2 = { f5xc_aws_vpc_local_existing_subnet_id = "node2_subnet_id", f5xc_aws_vpc_az_name = local.aws_availability_zone }
+  }
+  f5xc_aws_default_ce_os_version       = true
+  f5xc_aws_default_ce_sw_version       = true
+  f5xc_aws_vpc_no_worker_nodes         = false
+  f5xc_aws_vpc_total_worker_nodes      = 2
+  f5xc_aws_vpc_use_http_https_port     = true
+  f5xc_aws_vpc_use_http_https_port_sli = true
+  ssh_public_key                       = file(var.ssh_public_key_file)
+  custom_tags                          = local.custom_tags
+  providers                            = {
+    aws      = aws.us-east-2
+    volterra = volterra.default
+  }
+}
+
+output "aws_vpc_multi_node_single_nic_existing_vpc_and_existing_subnets" {
+  value = module.aws_vpc_multi_node_single_nic_existing_vpc_and_existing_subnets.f5xc_aws_vpc
+}
+
+module "aws_vpc_multi_node_single_nic_existing_vpc_and_existing_subnets_apply_timeout_workaround" {
+  source         = "./modules/utils/timeout"
+  depend_on      = module.aws_vpc_multi_node_single_nic_existing_vpc_and_existing_subnets.f5xc_aws_vpc
   create_timeout = "5400s"
 }
