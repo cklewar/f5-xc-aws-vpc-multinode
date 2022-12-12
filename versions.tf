@@ -1,11 +1,11 @@
 terraform {
   required_version = ">= 1.3.0"
   cloud {
-    organization = cklewar"
+    organization = "cklewar"
     hostname     = "app.terraform.io"
 
     workspaces {
-      release = ""
+      name = "f5-xc-vpc-multinode-module"
     }
   }
   
