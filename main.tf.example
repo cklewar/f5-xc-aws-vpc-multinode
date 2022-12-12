@@ -181,7 +181,6 @@ module "subnet__single_node_multi_nic_existing_vpc_existing_subnet" {
       custom_tags             = merge({ SubnetName = local.node0_multi_nic_workload_subnet }, local.custom_tags)
     }
   ]
-  custom_tags = local.custom_tags
   providers   = {
     aws = aws.us-east-2
   }
@@ -213,7 +212,6 @@ module "subnet__multi_node_single_nic_existing_vpc_existing_subnet" {
       custom_tags             = merge({ SubnetName = local.node2_single_nic_local_subnet }, local.custom_tags)
     }
   ]
-  custom_tags = local.custom_tags
   providers   = {
     aws = aws.us-east-2
   }
@@ -287,7 +285,6 @@ module "subnet__multi_node_multi_nic_existing_vpc_existing_subnet" {
       custom_tags             = merge({ SubnetName = local.node2_multi_nic_workload_subnet }, local.custom_tags)
     }
   ]
-  custom_tags = local.custom_tags
   providers   = {
     aws = aws.us-east-2
   }
