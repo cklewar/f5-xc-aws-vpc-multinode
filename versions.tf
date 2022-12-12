@@ -5,7 +5,7 @@ terraform {
     hostname     = "app.terraform.io"
 
     workspaces {
-      name = "f5-xc-aws-vpc-module"
+      name = "f5-xc-aws-vpc-snode-snic-module"
     }
   }
 
