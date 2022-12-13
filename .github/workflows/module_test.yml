@@ -1,4 +1,4 @@
-name: F5XC AWS VPC Site module
+name: F5XC AWS VPC Multinode module
 on: workflow_dispatch
 jobs:
   f5-xc-aws-vpc-site-module-validate:
