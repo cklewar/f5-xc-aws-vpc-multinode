@@ -1,5 +1,5 @@
 name: F5XC AWS VPC Site module
-on: push
+on: workflow_dispatch
 jobs:
   f5-xc-aws-vpc-site-module-validate:
     runs-on: ubuntu-latest
