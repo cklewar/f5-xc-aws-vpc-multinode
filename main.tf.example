@@ -62,7 +62,7 @@ variable "ssh_public_key_file" {
 
 variable "create_timeout" {
   type    = string
-  default = "1800s"
+  default = "3600s"
 }
 
 locals {
