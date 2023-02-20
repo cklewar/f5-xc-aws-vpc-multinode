@@ -10,7 +10,7 @@ jobs:
       - name: Check out release and submodules
         uses: actions/checkout@v3
         with:
-          ref: 0.11.19
+          ref: 
           fetch-depth: 0
           submodules: recursive
       - name: Checkout support repo
