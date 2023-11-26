@@ -1,4 +1,4 @@
 [submodule "modules"]
 	path = modules
 	url = https://github.com/cklewar/f5-xc-modules
-	branch = 0.11.23
+	branch = 0.11.24
